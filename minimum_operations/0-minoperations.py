@@ -1,26 +1,20 @@
+#!/usr/bin/python3
+
+
+
 def minOperations(n):
-  """
-  Calculates the minimum number of operations to reach n characters with Copy All and Paste operations.
+    if n < 2:
+        return 0
 
-  Args:
-      n: The target number of characters.
+    current_num_of_h = 1
+    copied = 0
+    num_of_operations = 0
 
-  Returns:
-      The minimum number of operations needed, or 0 if n is impossible.
-  """
-  if n <= 1:
-    return 0  # No operations needed for n <= 1
+    while current_num_of_h < n:
+        if n % current_num_of_h == 0:
+            copied = current_num_of_h
+            num_of_operations += 1
 
-  # Find the largest power of 2 less than or equal to n
-  power_of_2 = 1
-  while power_of_2 <= n:
-    power_of_2 *= 2
-
-  # Calculate the number of copy operations needed (excluding the initial H)
-  copy_operations = power_of_2 // 2 - 1
-
-  # Calculate the number of paste operations (excluding the initial H)
-  paste_operations = n - power_of_2
-
-  # Total operations is copy + paste + 1 (initial H)
-  return copy_operations + paste_operations + 1
+        current_num_of_h += copied
+        num_of_operations += 1
+    return num_of_operations
